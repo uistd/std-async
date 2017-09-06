@@ -18,6 +18,11 @@ class AsyncCall
     private static $async_call_list;
 
     /**
+     * @var array 每个回调的参数
+     */
+    private static $async_call_arg;
+
+    /**
      * @var bool 是否设置了事件
      */
     private static $is_event_set = false;
@@ -38,10 +43,9 @@ class AsyncCall
             EventManager::instance()->attach(EventDriver::EVENT_COMMIT, array('\FFan\Std\Async\AsyncCall', 'call'));
             self::$is_event_set = true;
         }
-        if (null === $args) {
-            self::$async_call_list[$name] = $callback;
-        } else {
-            self::$async_call_list[$name] = [$callback, $args];
+        self::$async_call_list[$name] = $callback;
+        if (null !== $args) {
+            self::$async_call_arg[$name] = $args;
         }
     }
 
@@ -55,14 +59,16 @@ class AsyncCall
         }
         $logger = LogHelper::getLogRouter();
         $all_call_list = self::$async_call_list;
+        $all_call_arg = self::$async_call_arg;
         self::$async_call_list = null;
+        self::$async_call_arg = null;
         //执行回调函数
-        foreach ($all_call_list as $name => $call_set) {
+        foreach ($all_call_list as $name => $call_func) {
             $logger->debug('[Async]Call async callback:' . $name);
-            if (is_array($call_set)) {
-                call_user_func($call_set[0], $call_set[1]);
+            if (isset($all_call_arg[$name])) {
+                call_user_func($call_func, $all_call_arg[$name]);
             } else {
-                call_user_func($call_set);
+                call_user_func($call_func);
             }
         }
         //继续调用，因为有可能在执行异步回调的时候，又生成了新的异步回调
