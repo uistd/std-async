@@ -1,11 +1,11 @@
 <?php
 
 require_once '../vendor/autoload.php';
-\FFan\Std\Common\Config::init(array(
+\UiStd\Common\Config::init(array(
     'env' => 'dev'
 ));
 
-new \FFan\Std\Logger\FileLogger('logs');
+new \UiStd\Logger\FileLogger('logs');
 function test1()
 {
     echo 'this is test1', PHP_EOL;
@@ -29,9 +29,9 @@ class TestClass
     }
 }
 
-\FFan\Std\Async\AsyncCall::setCallback('test1', 'test1');
-\FFan\Std\Async\AsyncCall::setCallback('test2', 'test2');
-\FFan\Std\Async\AsyncCall::setCallback('test3', 'test3', 'hello');
-\FFan\Std\Async\AsyncCall::setCallback('test4', array('TestClass', 'test4'), 'world');
+\UiStd\Async\AsyncCall::setCallback('test1', 'test1');
+\UiStd\Async\AsyncCall::setCallback('test2', 'test2');
+\UiStd\Async\AsyncCall::setCallback('test3', 'test3', 'hello');
+\UiStd\Async\AsyncCall::setCallback('test4', array('TestClass', 'test4'), 'world');
 
-\FFan\Std\Event\EventManager::instance()->trigger(\FFan\Std\Event\EventDriver::EVENT_COMMIT);
+\UiStd\Event\EventManager::instance()->trigger(\UiStd\Event\EventDriver::EVENT_COMMIT);

@@ -1,14 +1,14 @@
 <?php
 
-namespace FFan\Std\Async;
+namespace UiStd\Async;
 
-use FFan\Std\Event\EventDriver;
-use FFan\Std\Event\EventManager;
-use FFan\Std\Logger\LogHelper;
+use UiStd\Event\EventDriver;
+use UiStd\Event\EventManager;
+use UiStd\Logger\LogHelper;
 
 /**
  * Class AsyncCall
- * @package FFan\Std\Async
+ * @package UiStd\Async
  */
 class AsyncCall
 {
@@ -40,7 +40,7 @@ class AsyncCall
         }
         //如果是第一次
         if (!self::$is_event_set) {
-            EventManager::instance()->attach(EventDriver::EVENT_COMMIT, array('\FFan\Std\Async\AsyncCall', 'call'));
+            EventManager::instance()->attach(EventDriver::EVENT_COMMIT, array('\UiStd\Async\AsyncCall', 'call'));
             self::$is_event_set = true;
         }
         self::$async_call_list[$name] = $callback;

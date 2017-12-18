@@ -1,9 +1,9 @@
 {
-  "name": "ffan/std-async",
-  "description": "FFan php async components",
+  "name": "uistd/async",
+  "description": "UI Service 框架异步操作组件",
   "keywords": [
-    "ffan",
-    "php",
+    "ui service",
+    "uistd",
     "async"
   ],
   "type": "composer",
@@ -16,12 +16,12 @@
   ],
   "require": {
     "php": ">=5.5.0",
-    "ffan/std-event": "2.*",
-    "ffan/std-logger": "1.*"
+    "uistd/event": "3.*",
+    "uistd/logger": "2.*"
   },
   "autoload": {
     "psr-4": {
-      "FFan\\Std\\Async\\": "src"
+      "UiStd\\Async\\": "src"
     }
   },
   "minimum-stability": "stable",
